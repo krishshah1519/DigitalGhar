@@ -1,4 +1,3 @@
-// frontend/src/components/Auth/Register.jsx
 import React, { useState } from 'react';
 import api from '../api/axiosConfig';
 import { useNavigate } from 'react-router-dom';
@@ -31,9 +30,9 @@ const Register = () => {
     }
 
     try {
-      await apiClient.post('/register/', formData);
+      await api.post('/register/', formData);
       setSuccess('Registration successful! Please log in.');
-      // Optional: redirect to login after a short delay
+      
       setTimeout(() => {
         // You can add logic here to switch to the login tab/view
       }, 2000);
