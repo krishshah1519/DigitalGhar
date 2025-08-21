@@ -23,7 +23,7 @@ const DashboardPage= ()=> {
         fetchFolders();
         }, []) 
         if (loading) return <p>Loading Folder...</p>;
-        if (error) return <p style={{color:red}}>{error}</p>;
+        if (error) return <p style={{color:'red'}}>{error}</p>;
         return (
     <div>
       <h1>Your Document Vault</h1>
