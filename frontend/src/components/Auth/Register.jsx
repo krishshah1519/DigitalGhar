@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import api from '../api/axiosConfig';
-import { useNavigate } from 'react-router-dom';
+import { FaUser, FaLock, FaEnvelope } from 'react-icons/fa';
 
-const Register = () => {
+const Register = ({ onRegisterSuccess, setAuthError }) => {
   const [formData, setFormData] = useState({
     username: '',
     email: '',
@@ -11,9 +11,6 @@ const Register = () => {
     first_name: '',
     last_name: '',
   });
-  const [error, setError] = useState('');
-  const [success, setSuccess] = useState('');
-  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -21,48 +18,62 @@ const Register = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError('');
-    setSuccess('');
+    setAuthError('');
 
     if (formData.password !== formData.password2) {
-      setError("Passwords do not match.");
+      setAuthError("Passwords do not match.");
       return;
     }
 
     try {
       await api.post('/register/', formData);
-      setSuccess('Registration successful! Please log in.');
-      
-      setTimeout(() => {
-        // You can add logic here to switch to the login tab/view
-      }, 2000);
+      onRegisterSuccess('Registration successful! Please log in.');
     } catch (err) {
-      // Handle different types of errors from the backend
       if (err.response && err.response.data) {
         const errorData = err.response.data;
         const errorMessages = Object.values(errorData).flat().join(' ');
-        setError(errorMessages || 'Registration failed. Please try again.');
+        setAuthError(errorMessages || 'Registration failed. Please try again.');
       } else {
-        setError('An unknown error occurred.');
+        setAuthError('An unknown error occurred.');
       }
     }
   };
 
+  const inputClass = "w-full p-4 pl-12 border border-gray-600 rounded-lg bg-gray-700 text-gray-200 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors";
+
   return (
-    <div>
-      <h2>Register</h2>
-      <form onSubmit={handleSubmit}>
-        <input type="text" name="username" placeholder="Username" onChange={handleChange} required />
-        <input type="email" name="email" placeholder="Email" onChange={handleChange} required />
-        <input type="text" name="first_name" placeholder="First Name" onChange={handleChange} />
-        <input type="text" name="last_name" placeholder="Last Name" onChange={handleChange} />
-        <input type="password" name="password" placeholder="Password" onChange={handleChange} required />
-        <input type="password" name="password2" placeholder="Confirm Password" onChange={handleChange} required />
-        <button type="submit">Register</button>
-        {error && <p style={{ color: 'red' }}>{error}</p>}
-        {success && <p style={{ color: 'green' }}>{success}</p>}
-      </form>
-    </div>
+    <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="relative">
+          <FaUser className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-500" />
+          <input className={inputClass} type="text" name="first_name" placeholder="First Name" onChange={handleChange} />
+        </div>
+        <div className="relative">
+          <FaUser className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-500" />
+          <input className={inputClass} type="text" name="last_name" placeholder="Last Name" onChange={handleChange} />
+        </div>
+      </div>
+      <div className="relative">
+        <FaUser className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-500" />
+        <input className={inputClass} type="text" name="username" placeholder="Username" onChange={handleChange} required />
+      </div>
+      <div className="relative">
+        <FaEnvelope className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-500" />
+        <input className={inputClass} type="email" name="email" placeholder="Email" onChange={handleChange} required />
+      </div>
+      <div className="relative">
+        <FaLock className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-500" />
+        <input className={inputClass} type="password" name="password" placeholder="Password" onChange={handleChange} required />
+      </div>
+      <div className="relative">
+        <FaLock className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-500" />
+        <input className={inputClass} type="password" name="password2" placeholder="Confirm Password" onChange={handleChange} required />
+      </div>
+
+      <button className="w-full p-4 mt-2 border-none rounded-lg bg-green-600 text-white font-bold cursor-pointer transition-colors hover:bg-green-700" type="submit">
+        Create Account
+      </button>
+    </form>
   );
 };
 
