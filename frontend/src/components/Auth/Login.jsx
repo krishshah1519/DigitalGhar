@@ -8,10 +8,10 @@ const Login = ()=>{
     const [error, setError] = useState("");
     const Navigate = useNavigate();
     
-    const handleSubmit = ()=> {
+    const handleSubmit =async ()=> {
         e.preventDefault();
         try{
-            const response = api.post("/token/",{
+            const response = await api.post("/token/",{
                 username,
                 password
             });
@@ -29,7 +29,7 @@ const Login = ()=>{
                 <input
                 type="text"
                 placeholder="username"
-                class=""
+                
                 value={username}
                 onChange={(e)=> setUsername(e.target.value)}
                 required
@@ -38,7 +38,7 @@ const Login = ()=>{
                 <input
                 type="password"
                 placeholder="password"
-                class=""
+                
                 value={password}
                 onChange={(e)=>setPassword(e.target.value)}
                 required
