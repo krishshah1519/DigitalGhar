@@ -152,12 +152,6 @@ const DashboardPage = () => {
         }
     };
 
-    const handleLogout = () => {
-        localStorage.removeItem('accessToken');
-        localStorage.removeItem('refreshToken');
-        navigate('/');
-    };
-
     return (
         <>
             <FolderModal
@@ -175,16 +169,11 @@ const DashboardPage = () => {
             />
             <div className="container mx-auto px-4 py-8">
                 <header className="flex flex-wrap justify-between items-center gap-4 mb-6 border-b border-gray-700 pb-4">
-                    <h1 className="text-3xl font-bold text-white">Digital Vault</h1>
+                    <h1 className="text-3xl font-bold text-white">Vault</h1>
                     <div className="flex items-center gap-4">
-                        <Link to="/profile" className="action-button bg-gray-600 hover:bg-gray-500">
-                            <FaUserCircle /> Profile
-                        </Link>
+
                         <button onClick={() => setModalState({ type: 'create' })} className="action-button bg-blue-600 hover:bg-blue-700">
                             <FaFolderPlus /> New Folder
-                        </button>
-                        <button onClick={handleLogout} className="action-button bg-red-600 hover:bg-red-700">
-                            <FaSignOutAlt /> Logout
                         </button>
                     </div>
                 </header>

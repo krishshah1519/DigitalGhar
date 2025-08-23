@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
 import {AiOutlineMenu} from 'react-icons/ai'
-import links from 'react';
+import {Link} from 'react-router-dom';
 
- const Sidebar =({children})=>{
+ const Sidebar =({})=>{
     const [isSidebarOpen, setIsSidebarOpen]= useState(true);
 
     const toggleSidebar = ()=>{
@@ -21,7 +21,11 @@ import links from 'react';
             ><AiOutlineMenu/></button>
             </div>
             <div>
-            <button className=" p-4 justify-center items-center text-xl">Dashboard</button>
+                <Link to="/dashboard">
+                    <button className=" p-4 justify-center items-center text-xl">
+                        Dashboard
+                    </button>
+                </Link>
             </div>
             </div>
 
@@ -32,9 +36,6 @@ import links from 'react';
             ><AiOutlineMenu/></button>
                 )}
         </aside>
-        <main className="flex-1 p-8 overflow-y-auto">
-                {children}
-            </main>
         </div>
     )}
 

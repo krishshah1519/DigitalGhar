@@ -5,7 +5,7 @@ import Register from './components/Auth/Register';
 import DashboardPage from './pages/DashboardPage';
 import FolderDetailPage from './pages/FolderDetailPage';
 import ProfilePage from './pages/ProfilePage';
-import Sidebar from './components/Sidebar';
+import MainLayout from './components/layout/MainLayout';
 
 const PrivateRoute = ({ children }) => {
   const token = localStorage.getItem('accessToken');
@@ -23,9 +23,9 @@ function App() {
               path="/dashboard"
               element={
                 <PrivateRoute>
-                    <Sidebar>
+                    <MainLayout>
                   <DashboardPage />
-                  </Sidebar>
+                  </MainLayout>
                 </PrivateRoute>
               }
             />
@@ -34,17 +34,17 @@ function App() {
               path="/folder/:folderId"
               element={
                 <PrivateRoute>
-                    <Sidebar>
+                    <MainLayout>
                   <FolderDetailPage />
-                  </Sidebar>
+                  </MainLayout>
                 </PrivateRoute>
               }
             />
             <Route path="/profile" element={
                 <PrivateRoute>
-                    <Sidebar>
+                    <MainLayout>
                         <ProfilePage />
-                    </Sidebar>
+                    </MainLayout>
                 </PrivateRoute>} />
           </Routes>
         </main>
