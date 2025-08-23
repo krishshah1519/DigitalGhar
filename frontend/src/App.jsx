@@ -5,6 +5,7 @@ import Register from './components/Auth/Register';
 import DashboardPage from './pages/DashboardPage';
 import FolderDetailPage from './pages/FolderDetailPage';
 import ProfilePage from './pages/ProfilePage';
+import Sidebar from './components/Sidebar';
 
 const PrivateRoute = ({ children }) => {
   const token = localStorage.getItem('accessToken');
@@ -22,7 +23,9 @@ function App() {
               path="/dashboard"
               element={
                 <PrivateRoute>
+                    <Sidebar>
                   <DashboardPage />
+                  </Sidebar>
                 </PrivateRoute>
               }
             />
@@ -31,11 +34,18 @@ function App() {
               path="/folder/:folderId"
               element={
                 <PrivateRoute>
+                    <Sidebar>
                   <FolderDetailPage />
+                  </Sidebar>
                 </PrivateRoute>
               }
             />
-            <Route path="/profile" element={<PrivateRoute><ProfilePage /></PrivateRoute>} />
+            <Route path="/profile" element={
+                <PrivateRoute>
+                    <Sidebar>
+                        <ProfilePage />
+                    </Sidebar>
+                </PrivateRoute>} />
           </Routes>
         </main>
       </div>
@@ -51,7 +61,7 @@ const AuthPage = () => {
   const onRegisterSuccess = (message) => {
     setAuthSuccess(message);
     setAuthError('');
-    // After a short delay to show the success message, switch to the login view
+
     setTimeout(() => {
       setIsLoginView(true);
       setAuthSuccess('');
