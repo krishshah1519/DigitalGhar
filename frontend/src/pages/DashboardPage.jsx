@@ -167,9 +167,12 @@ const DashboardPage = () => {
                 title="Delete Folder"
                 message={`Are you sure you want to delete the folder "${modalState.data?.name}"? All documents inside will also be deleted.`}
             />
-            <div className="container mx-auto px-4 py-8">
-                <header className="flex flex-wrap justify-between items-center gap-4 mb-6 border-b border-gray-700 pb-4">
-                    <h1 className="text-3xl font-bold text-white">Vault</h1>
+            <div className="container mx-auto px-4 sm:px-4 lg:px-4 py-8">
+                <header className="flex flex-wrap justify-between items-center gap-4 mb-8 border-b border-gray-700 pb-6">
+                    <div>
+                    <h1 className="text-4xl font-bold text-white">Digital Vault</h1>
+                    <p className="text-gray-400 mt-1">Organize and manage your digital life.</p>
+                    </div>
                     <div className="flex items-center gap-4">
 
                         <button onClick={() => setModalState({ type: 'create' })} className="action-button bg-blue-600 hover:bg-blue-700">
@@ -178,8 +181,8 @@ const DashboardPage = () => {
                     </div>
                 </header>
 
-                {/* Search and Filter Section */}
-                <form onSubmit={handleSearch} className="bg-gray-800 p-4 rounded-lg mb-8 flex flex-col md:flex-row gap-4">
+            <div className="mb-10">
+                <form onSubmit={handleSearch} className="bg-gray-800 p-6 rounded-xl shadow-lg flex flex-col md:flex-row gap-4 items-center">
                     <div className="relative flex-grow">
                         <FaSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
                         <input
@@ -198,13 +201,13 @@ const DashboardPage = () => {
                         className="react-select-container flex-grow"
                         classNamePrefix="react-select"
                     />
-                    <button type="submit" className="action-button bg-green-600 hover:bg-green-700" disabled={isSearching}>
+                    <button type="submit" className="action-button bg-green-600 hover:bg-green-700 w-full md:w-auto" disabled={isSearching}>
                         {isSearching ? 'Searching...' : 'Search'}
                     </button>
                 </form>
+            </div>
 
-                {/* Main Content: Folders or Search Results */}
-                <h2 className="text-2xl font-semibold mb-4">{searchResults.length > 0 ? 'Search Results' : 'Your Folders'}</h2>
+                <h2 className="text-2xl font-semibold mb-6 text-white">{searchResults.length > 0 ? 'Search Results' : 'Your Folders'}</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                     {searchResults.length > 0 ? (
                         searchResults.map(doc => (
