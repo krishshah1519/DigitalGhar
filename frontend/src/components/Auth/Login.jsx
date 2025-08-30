@@ -10,7 +10,7 @@ const Login = ({ setAuthError }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setAuthError(""); // Clear previous errors
+    setAuthError(""); 
     try {
       const response = await api.post("/token/", {
         username,
