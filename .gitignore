@@ -1,0 +1,18 @@
+
+__pycache__/
+*.pyc
+.env
+backend/.venv/
+backend/db.sqlite3
+backend/documents/
+
+# Node / Vite
+node_modules/
+dist/
+.local
+
+# Editor / OS files
+.vscode/
+.idea/
+.DS_Store\n
+documents/
