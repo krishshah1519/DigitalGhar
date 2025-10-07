@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import api from '../api/axiosConfig';
-import { FaUser, FaLock, FaEnvelope } from 'react-icons/fa';
+import { FaUser, FaLock, FaEnvelope, FaEye, FaEyeSlash } from 'react-icons/fa';
 
 const Register = ({ onRegisterSuccess, setAuthError }) => {
   const [formData, setFormData] = useState({
@@ -11,6 +11,9 @@ const Register = ({ onRegisterSuccess, setAuthError }) => {
     first_name: '',
     last_name: '',
   });
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -63,11 +66,17 @@ const Register = ({ onRegisterSuccess, setAuthError }) => {
       </div>
       <div className="relative">
         <FaLock className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-500" />
-        <input className={inputClass} type="password" name="password" placeholder="Password" onChange={handleChange} required />
+        <input className={inputClass} type={showPassword ? "text" : "password"} name="password" placeholder="Password" onChange={handleChange} required />
+        <div className="absolute right-4 top-1/2 transform -translate-y-1/2 cursor-pointer" onClick={() => setShowPassword(!showPassword)}>
+            {showPassword ? <FaEyeSlash className="text-gray-500" /> : <FaEye className="text-gray-500" />}
+        </div>
       </div>
       <div className="relative">
         <FaLock className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-500" />
-        <input className={inputClass} type="password" name="password2" placeholder="Confirm Password" onChange={handleChange} required />
+        <input className={inputClass} type={showConfirmPassword ? "text" : "password"} name="password2" placeholder="Confirm Password" onChange={handleChange} required />
+        <div className="absolute right-4 top-1/2 transform -translate-y-1/2 cursor-pointer" onClick={() => setShowConfirmPassword(!showConfirmPassword)}>
+            {showConfirmPassword ? <FaEyeSlash className="text-gray-500" /> : <FaEye className="text-gray-500" />}
+        </div>
       </div>
 
       <button className="w-full p-4 mt-2 border-none rounded-lg bg-green-600 text-white font-bold cursor-pointer transition-colors hover:bg-green-700" type="submit">
