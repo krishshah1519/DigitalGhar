@@ -33,12 +33,14 @@ const FolderDetailPage = () => {
     const fetchFolderData = useCallback(async () => {
         try {
             setLoading(true);
-            const [docsRes, folderRes, tagsRes] = await Promise.all([
-                api.get(`/documents/?folder=${folderId}`),
+            // We only need two API calls now
+            const [folderRes, tagsRes] = await Promise.all([
                 api.get(`/folders/${folderId}/`),
                 api.get('/tags/')
             ]);
-            setDocuments(docsRes.data.results || []);
+    
+            // Use the documents directly from the folder response
+            setDocuments(folderRes.data.documents || []);
             setFolderName(folderRes.data.name);
             setAllTags(tagsRes.data.map(t => ({ value: t.id, label: t.name })));
         } catch (err) {

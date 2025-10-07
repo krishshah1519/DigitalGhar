@@ -123,3 +123,6 @@ REST_FRAMEWORK = {
 
 # Use SECURED_FIELDS_KEY for the new library
 SECURED_FIELDS_KEY = os.getenv('FERNET_KEY')
+
+MEDIA_URL = '/documents/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'documents')

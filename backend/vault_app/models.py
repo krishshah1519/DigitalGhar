@@ -37,7 +37,7 @@ class Tag(models.Model):
 
 class Document(models.Model):
     name = secured_fields.EncryptedCharField(max_length=255)
-    file = secured_fields.EncryptedFileField(upload_to='documents/')
+    file = secured_fields.EncryptedFileField(upload_to='')
     file_type = models.CharField(max_length=50, blank=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='documents')
     folder = models.ForeignKey(Folder, on_delete=models.CASCADE, related_name='documents')

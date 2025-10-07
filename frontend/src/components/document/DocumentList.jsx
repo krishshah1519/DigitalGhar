@@ -17,7 +17,7 @@ const DocumentList = ({ documents, allTags, onEdit, onDelete }) => (
                     <button onClick={() => onEdit(doc)} className="icon-button"><FaEdit /></button>
                     <button onClick={() => onDelete(doc)} className="icon-button text-red-500"><FaTrash /></button>
                     <a href={doc.file} target="_blank" rel="noopener noreferrer" download className="action-button bg-green-600 hover:bg-green-700 text-sm">
-                        Download
+                            Download
                     </a>
                 </div>
             </div>
