@@ -47,6 +47,7 @@ class TagSerializer(serializers.ModelSerializer):
         fields = ['id', 'name']
 
 class DocumentSerializer(serializers.ModelSerializer):
+    file = serializers.FileField(use_url=True) 
     class Meta:
         model = Document
         fields = ['id', 'name', 'file', 'file_type', 'folder', 'tags', 'created_at']

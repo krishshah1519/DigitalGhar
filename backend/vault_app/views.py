@@ -1,5 +1,8 @@
 from rest_framework import viewsets, generics, status
 from rest_framework.response import Response
+from rest_framework.decorators import action  
+from django.http import FileResponse          
+import os
 from .models import User, Folder, Document, Tag
 from .serializers import RegisterSerializer, FolderSerializer, DocumentSerializer, TagSerializer, UserSerializer, \
     ChangePasswordSerializer
@@ -67,6 +70,24 @@ class DocumentViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
+    
+    @action(detail=True, methods=['get'])
+    def download(self, request,pk=None):
+        instance = self.get_object()
+        
+        # Open the file using the field's mechanism, which handles decryption
+        file_handle = instance.file.open()
+
+        # Attempt to determine the correct filename with extension
+        filename = instance.name
+        # extract extension from the stored file path if the name doesn't have it
+        _, ext = os.path.splitext(instance.file.name)
+        if ext and not filename.endswith(ext):
+            filename += ext
+
+        response = FileResponse(file_handle, content_type=instance.file_type or 'application/octet-stream')
+        response['Content-Disposition'] = f'attachment; filename="{filename}"'
+        return response
 
 class TagViewSet(viewsets.ModelViewSet):
 
